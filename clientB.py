@@ -26,4 +26,5 @@ async def play(room_code):
             player_status["score"] += 10
             await websocket.send(json.dumps(player_status))
 
-asyncio.run(play("your-room-code"))  # Replace with actual room code
+room=input("Enter room code: ")
+asyncio.run(play(room))  # Replace with actual room code
