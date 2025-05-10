@@ -12,7 +12,9 @@ async def play(room_code):
             return
 
         print("Connected to room!")
-
+        if response == "OPPONENT_JOINED":
+            print("Opponent has joined the game!")
+            
         async def receive():
             while True:
                 msg = await websocket.recv()
