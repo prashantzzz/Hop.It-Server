@@ -1,6 +1,5 @@
-# server.py (FastAPI WebSocket server)
+# server.py
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
 from collections import defaultdict
 import uvicorn
 
