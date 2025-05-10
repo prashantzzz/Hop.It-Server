@@ -1,48 +1,29 @@
+# client_ws.py
 import asyncio
 import websockets
 import json
 
-SERVER_URL = "wss://hopit-ws-server.glitch.me/ws"
-
 async def play(room_code):
-    uri = f"{SERVER_URL}/{room_code}"
-    try:
-        async with websockets.connect(uri) as websocket:
-            print(f"Connected to room '{room_code}'")
+    uri = f"ws://your-server-url/ws/{room_code}"  # Replace with your actual Render URL
+    async with websockets.connect(uri) as websocket:
+        response = await websocket.recv()
+        if response == "ROOM_FULL":
+            print("Room is full.")
+            return
 
-            # Check for full room message
-            initial_response = await websocket.recv()
-            if initial_response == "ROOM_FULL":
-                print("Room is full. Please try another code.")
-                return
+        print("Connected to room!")
 
-            # Store local player state
-            player_status = {"score": 0, "alive": True}
+        async def receive():
+            while True:
+                msg = await websocket.recv()
+                print("[Opponent]", msg)
 
-            # Function to receive opponent updates
-            async def receive_opponent():
-                while True:
-                    try:
-                        msg = await websocket.recv()
-                        opponent_status = json.loads(msg)
-                        print("[Opponent]", opponent_status)  # Replace with UI update in game
-                    except:
-                        print("Lost connection to opponent.")
-                        break
+        asyncio.create_task(receive())
 
-            # Start listening to opponent in background
-            asyncio.create_task(receive_opponent())
-
-            # Main loop (replace with your Pygame loop logic)
-            while player_status["alive"]:
-                await asyncio.sleep(1)  # simulate time passing
-                player_status["score"] += 10  # example: score increases
-                await websocket.send(json.dumps(player_status))
-
-    except Exception as e:
-        print("Connection failed:", e)
-
-# To test from terminal:
-if __name__ == "__main__":
-    room = input("Enter room code: ")
-    asyncio.run(play(room))
+        player_status = {"score": 0, "alive": True}
+        while player_status["alive"]:
+            await asyncio.sleep(1)
+            player_status["score"] += 10
+            await websocket.send(json.dumps(player_status))
+room = input("Enter room code: ")
+asyncio.run(play(room))  # Replace with actual room code
