@@ -1,8 +1,8 @@
 # Hop.It Multiplayer WebSocket Server
 
-This is the real-time multiplayer server for **Hop.It**, a vertical jumping game built with Pygame. It allows two players to compete live by syncing scores and survival status over WebSockets.
+This is the real-time multiplayer server for **[Hop.It](https://github.com/prashantzzz/hop.it)**, a vertical jumping game built with Pygame. It allows two players to compete live by syncing scores and survival status over WebSockets.
 
-Hosted for free using **FastAPI + WebSocket** on [Glitch](https://glitch.com), no credit card required.
+Hosted for free using **FastAPI + WebSocket** on [Render](https://hop-it-server.onrender.com/).
 
 ---
 
@@ -10,7 +10,7 @@ Hosted for free using **FastAPI + WebSocket** on [Glitch](https://glitch.com), n
 
 Replace `<room_code>` with any 6-letter code (e.g. `abc123`):
 
-wss://hopit-ws-server.glitch.me/ws/<room_code>
+wss://hop-it-server.onrender.com/ws/<room_code>
 
 ---
 
@@ -18,8 +18,7 @@ wss://hopit-ws-server.glitch.me/ws/<room_code>
 
 ├── server.py # FastAPI WebSocket server
 ├── requirements.txt # Python dependencies
-├── start.sh # Glitch launch script (must be executable)
-├── .glitch.json # (Optional) Glitch project config
+├── render.yaml # render config file
 └── README.md # You're here!
 
 
@@ -35,34 +34,15 @@ wss://hopit-ws-server.glitch.me/ws/<room_code>
 
 ---
 
-## 🔧 How to Deploy (on Glitch.com)
-
-1. Go to [https://glitch.com](https://glitch.com)
-2. Create a new project → choose "Hello Webpage" or "Blank"
-3. Click `Tools` → `Terminal`
-4. Run:
-   ```bash
-   rm -rf * .*
-
-Create the following files with these contents:
-
-server.py
-
-✅ Hosting Check
-
-After setup, visit:
-
-https://hopit-ws-server.glitch.me
+[Render Hosted Server](https://hop-it-server.onrender.com/)
 If the server is working, you’ll see:
 {"detail":"Not Found"}
 This means the server is running (FastAPI root endpoint is undefined).
 
 🧪 Test WebSocket
-Try connecting to the server using a WebSocket client or the game client:
-wss://hopit-ws-server.glitch.me/ws/test01
-You can use client_ws.py in your game to connect and exchange real-time score/status.
+You can use clientA.py/clientB.py in your game to connect and exchange real-time score/status.
 
 💬 About
-Built to enable 1v1 multiplayer in Hop.It, a vertical arcade jumper game made with Pygame.
+Built to enable 1v1 multiplayer in [Hop.It](https://github.com/prashantzzz/hop.it), a vertical arcade jumper game made with Pygame.
 
 Enjoy climbing and competing!
